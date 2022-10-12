@@ -25,6 +25,7 @@ public class PostsController {
 	@Autowired
 	private PostService postsService;
 	
+	@Autowired
 	private PostsRepository postsRepo;
 	
 	@GetMapping
@@ -33,7 +34,7 @@ public class PostsController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Posts> save(Posts posts) {
+	public ResponseEntity<Posts> save(@RequestBody Posts posts) {
 		return ResponseEntity.ok().body(this.postsService.saveAndUpdate(posts));
 	}
 	

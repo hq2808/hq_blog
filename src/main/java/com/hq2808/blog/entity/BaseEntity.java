@@ -1,5 +1,6 @@
 package com.hq2808.blog.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -22,7 +23,10 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BaseEntity {
+public class BaseEntity implements Serializable {
+	
+	private static final long serialVersionUID = 3712848328289479407L;
+	
 	@Column(name = "CREATED_AT", updatable = false)
 	private LocalDateTime createdAt;
 	

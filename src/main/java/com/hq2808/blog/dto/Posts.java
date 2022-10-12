@@ -14,6 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Posts {
+	
 	/** The id. */
 	private String id;
 	

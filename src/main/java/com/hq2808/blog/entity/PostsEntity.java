@@ -1,6 +1,5 @@
 package com.hq2808.blog.entity;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +11,7 @@ import javax.persistence.Table;
 
 import org.eclipse.persistence.annotations.JoinFetch;
 import org.eclipse.persistence.annotations.JoinFetchType;
-import org.eclipse.persistence.annotations.UuidGenerator;
+import org.hibernate.annotations.GenericGenerator;
 
 import com.hq2808.blog.dto.Posts;
 
@@ -34,12 +33,12 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class PostsEntity extends BaseEntity{
 	
+	private static final long serialVersionUID = 1L;
+	
 	/** The id. */
-	@Id
-	@GeneratedValue(generator = "uuid")
-	@UuidGenerator(name = "uuid")
-	@Basic(optional = false)
-	@Column(name = "ID")
+	@Id 
+	@GeneratedValue(generator="system-uuid")
+	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	private String id;
 	
 	/** The slug. */
@@ -97,7 +96,7 @@ public class PostsEntity extends BaseEntity{
 				.image(domain.getImage())
 				.status(domain.getStatus())
 				.published(domain.getPublished())
-				.userEntity(UserEntity.toEntity(domain.getUser()))
+				.userEntity(domain.getUser() != null ? UserEntity.toEntity(domain.getUser()) : null)
 				.build();
 	}
 	

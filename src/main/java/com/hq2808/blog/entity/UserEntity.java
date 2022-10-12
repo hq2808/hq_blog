@@ -1,7 +1,6 @@
 package com.hq2808.blog.entity;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -13,7 +12,7 @@ import javax.persistence.Table;
 
 import org.eclipse.persistence.annotations.BatchFetch;
 import org.eclipse.persistence.annotations.BatchFetchType;
-import org.eclipse.persistence.annotations.UuidGenerator;
+import org.hibernate.annotations.GenericGenerator;
 
 import com.hq2808.blog.dto.User;
 
@@ -32,12 +31,12 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class UserEntity extends BaseEntity{
 	
+	private static final long serialVersionUID = 1L;
+	
 	/** The id. */
-	@Id
-	@GeneratedValue(generator = "uuid")
-	@UuidGenerator(name = "uuid")
-	@Basic(optional = false)
-	@Column(name = "ID")
+	@Id 
+	@GeneratedValue(generator="system-uuid")
+	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	private String id;
 	
 	/** The email. */
@@ -76,7 +75,6 @@ public class UserEntity extends BaseEntity{
 				.email(this.email)
 				.password(this.password)
 				.fullname(this.fullname)
-				.posts(this.posts.stream().map(PostsEntity::toDomain).collect(Collectors.toList()))
 				.build();
 	}
 	
@@ -96,7 +94,6 @@ public class UserEntity extends BaseEntity{
 				.email(domain.getEmail())
 				.password(domain.getPassword())
 				.fullname(domain.getFullname())
-				.posts(domain.getPosts().stream().map(PostsEntity::toEntity).collect(Collectors.toList()))
 				.build();
 	}
 }

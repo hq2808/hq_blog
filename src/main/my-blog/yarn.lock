@@ -6032,7 +6032,7 @@
   "resolved" "https://registry.npmjs.org/vue-property-decorator/-/vue-property-decorator-9.1.2.tgz"
   "version" "9.1.2"
 
-"vue-router@^3.5.1":
+"vue-router@^3.3.4", "vue-router@^3.5.1":
   "integrity" "sha512-VYXZQLtjuvKxxcshuRAwjHnciqZVoXAjTjcqBTz4rKc8qih9g9pI3hbDjmqXaHdgL3v8pV6P8Z335XvHzESxLQ=="
   "resolved" "https://registry.npmjs.org/vue-router/-/vue-router-3.6.5.tgz"
   "version" "3.6.5"
@@ -6065,6 +6065,13 @@
   dependencies:
     "@vue/compiler-sfc" "2.7.10"
     "csstype" "^3.1.0"
+
+"vuesax@^4.0.1-alpha.25":
+  "integrity" "sha512-cVLpKsem/YsMSbiy2s2M0O6rr8wrakOUFn0JYxtVQ1WgbVUD0/kU2/GMPVeRBNOh+30tRy2TKreFmjqc53vIBQ=="
+  "resolved" "https://registry.npmjs.org/vuesax/-/vuesax-4.0.1-alpha.25.tgz"
+  "version" "4.0.1-alpha.25"
+  dependencies:
+    "vue-router" "^3.3.4"
 
 "watchpack@^2.4.0":
   "integrity" "sha512-Lcvm7MGST/4fup+ifyKi2hjyIAwcdI4HRgtvTpIUxBRhB+RFtUh8XtDOxUfctVCnhVi+QQj49i91OyvzkJl6cg=="

@@ -5,9 +5,9 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.hq2808.blog.entity.PostsEntity;
+import com.hq2808.blog.entity.PostEntity;
 
 @Repository
-public interface PostsRepository extends JpaRepository<PostsEntity, String>{
-	Optional<PostsEntity> findById(String id);
+public interface PostRepository extends JpaRepository<PostEntity, String>{
+	Optional<PostEntity> findById(String id);
 }

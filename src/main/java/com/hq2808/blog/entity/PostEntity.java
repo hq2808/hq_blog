@@ -13,7 +13,7 @@ import org.eclipse.persistence.annotations.JoinFetch;
 import org.eclipse.persistence.annotations.JoinFetchType;
 import org.hibernate.annotations.GenericGenerator;
 
-import com.hq2808.blog.dto.Posts;
+import com.hq2808.blog.dto.Post;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,7 +31,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostsEntity extends BaseEntity{
+public class PostEntity extends BaseEntity{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -71,8 +71,8 @@ public class PostsEntity extends BaseEntity{
 	@JoinColumn(name = "USER_ID")
 	private UserEntity userEntity;
 	
-	public Posts toDomain() {
-		return Posts.builder()
+	public Post toDomain() {
+		return Post.builder()
 				.id(this.id)
 				.slug(this.slug)
 				.title(this.title)
@@ -84,11 +84,11 @@ public class PostsEntity extends BaseEntity{
 				.build();
 	}
 	
-	public static PostsEntity toEntity(Posts domain) {
+	public static PostEntity toEntity(Post domain) {
 		if(domain == null) {
 			return null;
 		}
-		return PostsEntity.builder()
+		return PostEntity.builder()
 				.id(domain.getId())
 				.slug(domain.getSlug())
 				.title(domain.getTitle())

@@ -1,19 +1,23 @@
 package com.hq2808.blog.entity;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.eclipse.persistence.annotations.BatchFetch;
 import org.eclipse.persistence.annotations.BatchFetchType;
 import org.hibernate.annotations.GenericGenerator;
-
 import com.hq2808.blog.dto.User;
 
 import lombok.AllArgsConstructor;
@@ -61,7 +65,15 @@ public class UserEntity extends BaseEntity{
 	/** The list post. */
 	@BatchFetch(value = BatchFetchType.IN)
 	@OneToMany(mappedBy = "userEntity")
-	private List<PostsEntity> posts;
+	private List<PostEntity> posts;
+	
+	@ManyToMany(cascade = CascadeType.REMOVE)
+    @JoinTable(
+            name = "users_authorities",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id")
+    )
+    private Collection<AuthorityEntity> authorities;
 	
 	/**
 	 * To domain.

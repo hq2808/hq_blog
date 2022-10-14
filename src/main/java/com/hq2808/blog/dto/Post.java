@@ -13,7 +13,7 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Posts {
+public class Post {
 	
 	/** The id. */
 	private String id;

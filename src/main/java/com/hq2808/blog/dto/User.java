@@ -9,7 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Setter
 @Getter
 @Builder
 @NoArgsConstructor
@@ -35,5 +37,7 @@ public class User {
 	private String fullname;
 	
 	/** The list posts. */
-	private List<Posts> posts;
+	private List<Post> post;
+	
+//	private list
 }

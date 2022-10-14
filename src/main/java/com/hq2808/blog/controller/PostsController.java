@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hq2808.blog.dto.Posts;
-import com.hq2808.blog.entity.PostsEntity;
-import com.hq2808.blog.repository.PostsRepository;
+import com.hq2808.blog.dto.Post;
+import com.hq2808.blog.entity.PostEntity;
+import com.hq2808.blog.repository.PostRepository;
 import com.hq2808.blog.service.PostService;
 
 @RestController
@@ -26,25 +26,25 @@ public class PostsController {
 	private PostService postsService;
 	
 	@Autowired
-	private PostsRepository postsRepo;
+	private PostRepository postsRepo;
 	
 	@GetMapping
-	public ResponseEntity<List<Posts>> getAll() {
+	public ResponseEntity<List<Post>> getAll() {
 		return ResponseEntity.ok().body(this.postsService.getAll());
 	}
 	
 	@PostMapping
-	public ResponseEntity<Posts> save(@RequestBody Posts posts) {
-		return ResponseEntity.ok().body(this.postsService.saveAndUpdate(posts));
+	public ResponseEntity<Post> save(@RequestBody Post post) {
+		return ResponseEntity.ok().body(this.postsService.saveAndUpdate(post));
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Posts> update(@PathVariable String id, @RequestBody Posts posts) {
-		Optional<PostsEntity> optPosts = this.postsRepo.findById(id);
+	public ResponseEntity<Post> update(@PathVariable String id, @RequestBody Post post) {
+		Optional<PostEntity> optPosts = this.postsRepo.findById(id);
 		if(optPosts.isEmpty()) {
 			return null;
 		}
-		posts.setId(id);
-		return ResponseEntity.ok().body(this.postsService.saveAndUpdate(posts));
+		post.setId(id);
+		return ResponseEntity.ok().body(this.postsService.saveAndUpdate(post));
 	}
 }

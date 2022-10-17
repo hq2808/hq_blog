@@ -1,24 +1,32 @@
-package com.hq2808.blog.entity;
+package com.hq2808.blog.entity.user;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.eclipse.persistence.annotations.BatchFetch;
 import org.eclipse.persistence.annotations.BatchFetchType;
 import org.hibernate.annotations.GenericGenerator;
 import com.hq2808.blog.dto.User;
+import com.hq2808.blog.entity.AuthorityEntity;
+import com.hq2808.blog.entity.BaseEntity;
+import com.hq2808.blog.entity.PostEntity;
+import com.hq2808.blog.enumerate.Roles;
+import com.hq2808.blog.enumerate.UserStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -62,10 +70,26 @@ public class UserEntity extends BaseEntity{
 	@Column(name = "USERNAME")
 	private String username;
 	
+	/** The age. */
+	@Column(name = "age")
+	private Integer age;
+	
 	/** The list post. */
 	@BatchFetch(value = BatchFetchType.IN)
 	@OneToMany(mappedBy = "userEntity")
 	private List<PostEntity> posts;
+	
+	/** The role. */
+	@Column(name = "role")
+	private String role;
+	
+	/** The status. */
+	@Column(name = "status")
+	private Integer status;
+	
+	/** The isLogin. */
+	@Column(name = "isLogin")
+	private Boolean isLogin;
 	
 	@ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
@@ -74,6 +98,11 @@ public class UserEntity extends BaseEntity{
             inverseJoinColumns = @JoinColumn(name = "authority_id")
     )
     private Collection<AuthorityEntity> authorities;
+	
+	/** The auth id. */
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "auth_id")
+	private AuthEntity auth;
 	
 	/**
 	 * To domain.
@@ -87,6 +116,11 @@ public class UserEntity extends BaseEntity{
 				.email(this.email)
 				.password(this.password)
 				.fullname(this.fullname)
+				.age(this.age)
+				.auth(this.auth)
+				.role(Roles.get(this.role))
+				.authorities(this.authorities)
+				.status(this.status)
 				.build();
 	}
 	
@@ -106,6 +140,24 @@ public class UserEntity extends BaseEntity{
 				.email(domain.getEmail())
 				.password(domain.getPassword())
 				.fullname(domain.getFullname())
+				.age(domain.getAge())
+				.auth(domain.getAuth())
+				.role(domain.getRole().getValue())
+				.status(domain.getStatus())
+				.authorities(domain.getAuthorities())
+				.build();
+	}
+	
+	public static UserEntity createUserActive(String username, String email, String password, Roles role, String fullname) {
+		return UserEntity.builder()
+				.id(UUID.randomUUID().toString())
+				.username(username)
+				.email(email)
+				.password(password)
+				.role(role.getValue())
+				.fullname(fullname)
+				.status(UserStatus.ACTIVE.value)
+				.isLogin(false)
 				.build();
 	}
 }

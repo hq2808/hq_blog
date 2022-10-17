@@ -1,4 +1,4 @@
-package com.hq2808.blog.service.Impl;
+package com.hq2808.blog.service.post;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,10 +10,9 @@ import org.springframework.stereotype.Service;
 import com.hq2808.blog.dto.Post;
 import com.hq2808.blog.entity.PostEntity;
 import com.hq2808.blog.repository.PostRepository;
-import com.hq2808.blog.service.PostService;
 
 @Service
-public class PostServiceImpl implements PostService{
+public class DefaultPostService implements PostService{
 	
 	@Autowired
 	private PostRepository repo;

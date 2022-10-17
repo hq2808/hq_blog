@@ -1,4 +1,4 @@
-package com.hq2808.blog.service;
+package com.hq2808.blog.service.post;
 
 import java.util.List;
 import java.util.Optional;

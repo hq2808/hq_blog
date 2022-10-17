@@ -34,12 +34,13 @@ public class BaseEntity implements Serializable {
 	private LocalDateTime updatedAt;
 	
 	@PrePersist
-	protected void onCreate() {
+	public void prePersist() {
 		createdAt = LocalDateTime.now();
+		updatedAt = LocalDateTime.now();
 	}
 
 	@PreUpdate
-	protected void onUpdate() {
+	public void preUpdate() {
 		updatedAt = LocalDateTime.now();
 	}
 }

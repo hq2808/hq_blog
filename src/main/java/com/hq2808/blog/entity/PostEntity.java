@@ -14,6 +14,7 @@ import org.eclipse.persistence.annotations.JoinFetchType;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.hq2808.blog.dto.Post;
+import com.hq2808.blog.entity.user.UserEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

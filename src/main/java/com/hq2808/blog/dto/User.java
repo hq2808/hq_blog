@@ -1,9 +1,14 @@
 package com.hq2808.blog.dto;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+
+import com.hq2808.blog.entity.AuthorityEntity;
+import com.hq2808.blog.entity.user.AuthEntity;
+import com.hq2808.blog.enumerate.Roles;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,8 +41,22 @@ public class User {
 	/** The full name. */
 	private String fullname;
 	
+	/** The age. */
+	private Integer age;
+	
 	/** The list posts. */
 	private List<Post> post;
 	
-//	private list
+	/** The roles. */
+	private Roles role;
+	
+	/** The status. */
+	private Integer status;
+	
+	/** The isLogin. */
+	private Boolean isLogin;
+	
+	private Collection<AuthorityEntity> authorities;
+	
+	private AuthEntity auth;
 }

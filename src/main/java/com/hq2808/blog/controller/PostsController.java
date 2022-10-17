@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hq2808.blog.dto.Post;
 import com.hq2808.blog.entity.PostEntity;
 import com.hq2808.blog.repository.PostRepository;
-import com.hq2808.blog.service.PostService;
+import com.hq2808.blog.service.post.PostService;
 
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("/webapi/post")
 public class PostsController {
 	
 	@Autowired

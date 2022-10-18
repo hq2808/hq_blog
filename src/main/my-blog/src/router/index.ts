@@ -3,6 +3,7 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import BlogHome from '../components/BlogHome.vue'
 import BlogPost from '../components/BlogPost.vue'
+import LoginPage from '../views/LoginPage.vue'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,12 @@ const routes: Array<RouteConfig> = [
     path: '/blog/:slug',
     name: 'blog-post',
     component: BlogPost
+  },
+  {
+    path: '/login',
+    name: 'routes.login',
+    component: LoginPage,
+    meta: {},
   }
 ]
 

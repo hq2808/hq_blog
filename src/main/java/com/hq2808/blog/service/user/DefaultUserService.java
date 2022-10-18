@@ -2,7 +2,9 @@ package com.hq2808.blog.service.user;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.management.relation.RoleInfoNotFoundException;
 import javax.management.relation.RoleNotFoundException;
@@ -87,6 +89,11 @@ public class DefaultUserService implements UserService{
 		}
 		UserEntity newUser = UserEntity.createUserActive(user.getUsername(), user.getEmail(), user.getPassword(), Roles.USER, user.getFullname());
 		return this.repo.save(newUser).toDomain();
+	}
+
+	@Override
+	public List<User> getAll() {
+		return this.repo.findAll().stream().map(UserEntity::toDomain).collect(Collectors.toList());
 	}
 
 }

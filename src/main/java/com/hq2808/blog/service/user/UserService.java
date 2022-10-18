@@ -1,5 +1,7 @@
 package com.hq2808.blog.service.user;
 
+import java.util.List;
+
 import javax.management.relation.RoleInfoNotFoundException;
 import javax.management.relation.RoleNotFoundException;
 
@@ -16,7 +18,9 @@ public interface UserService extends UserDetailsService{
 	 *
 	 * @param user the user
 	 */
-	public User signup(UserSignUpDto user) throws BusinessException;
+	User signup(UserSignUpDto user) throws BusinessException;
+	
+	List<User> getAll();
 	
 	User findByUsername(String username);
 	User saveNewUser(User user) throws RoleInfoNotFoundException, RoleNotFoundException;

@@ -12,7 +12,6 @@ import {Component, Vue} from 'vue-property-decorator';
 export default class BlogHome extends Vue {
   private prefecture?:string = 'áđá';
   created() {
-    debugger;
    console.log("Hello");
   }
 

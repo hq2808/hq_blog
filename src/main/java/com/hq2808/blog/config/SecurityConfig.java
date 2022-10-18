@@ -60,46 +60,51 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(appUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 	}
 	
+	/**
+	 * Cors configuration source.
+	 *
+	 * @return the cors configuration source
+	 * @throws Exception the exception
+	 */
 	@Bean
-	public CorsConfigurationSource corsConfigurationSource() {
+	public CorsConfigurationSource corsConfigurationSource() throws Exception {
 		final CorsConfiguration configuration = new CorsConfiguration();
-//		if (Arrays.stream(this.env.getActiveProfiles()).anyMatch(envi -> envi.equals("dev") || envi.equals("devlocal"))) {
-//			configuration.setAllowedOrigins(Arrays.asList("*"));
-//		} else {
-//			String homepage = this.env.getProperty("blog.homepage");
-//			if (homepage.substring(homepage.length() - 1).equalsIgnoreCase("/")) {
-//				homepage = homepage.substring(0, homepage.length() - 1);
-//			}
-//			configuration.setAllowedOrigins(Arrays.asList(homepage));
-//		}
+		configuration.setAllowedOrigins(Arrays.asList("*"));
 		configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
-		configuration.setAllowCredentials(true);
-		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", TokenAuthService.AUTH_HEADER_NAME, "x-file-name"));
-		configuration.setExposedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", TokenAuthService.AUTH_HEADER_NAME, "x-file-name"));
+		configuration.setAllowCredentials(false);
+		configuration.setAllowedHeaders(Arrays.asList("*"));
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
 	
+	/**
+	 * Configure.
+	 *
+	 * @param http the http
+	 * @throws Exception the exception
+	 */
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http	
-		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and()
-		.authorizeRequests()
-		.antMatchers(HttpMethod.GET, "/webapi/post/*, /webapi/post").permitAll()
-		.antMatchers(HttpMethod.GET, "/webapi/home/*").permitAll()
-		.antMatchers(HttpMethod.POST, "/webapi/user/signup").permitAll();
-//		.antMatchers("/webapi", "/webapi/**").authenticated();
-		
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and().authorizeRequests()
+				.antMatchers("/webapi/auth/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/webapi/post").permitAll()
+				.antMatchers(HttpMethod.POST, "/webapi/post").authenticated();
+//				.antMatchers("/webapi/**").authenticated();
+
 		http.addFilterBefore(
-				new StatelessLoginFilter("/auth/login",
-						tokenAuthenticationService,
-						appUserDetailsService,
-						authenticationManager()),
+			new StatelessLoginFilter(
+				"/webapi/auth/login",
+				tokenAuthenticationService,
+				appUserDetailsService,
+				authenticationManager()
+			),
+			UsernamePasswordAuthenticationFilter.class
+		);
+
+		http.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService),
 				UsernamePasswordAuthenticationFilter.class);
-		http.addFilterBefore(
-				new StatelessAuthenticationFilter(tokenAuthenticationService),
-				UsernamePasswordAuthenticationFilter.class);
+		http.cors();
+		http.csrf().disable();
 	}
 }

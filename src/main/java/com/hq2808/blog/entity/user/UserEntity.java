@@ -114,7 +114,6 @@ public class UserEntity extends BaseEntity{
 				.id(this.id)
 				.username(this.username)
 				.email(this.email)
-				.password(this.password)
 				.fullname(this.fullname)
 				.age(this.age)
 				.auth(this.auth)
@@ -142,7 +141,7 @@ public class UserEntity extends BaseEntity{
 				.fullname(domain.getFullname())
 				.age(domain.getAge())
 				.auth(domain.getAuth())
-				.role(domain.getRole().getValue())
+				.role(domain.getRole() != null ? domain.getRole().getValue() : null)
 				.status(domain.getStatus())
 				.authorities(domain.getAuthorities())
 				.build();

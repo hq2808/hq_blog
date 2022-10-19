@@ -9,7 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.hq2808.blog.base.ExpiredException;
 import com.hq2808.blog.entity.user.AuthEntity;
 import com.hq2808.blog.enumerate.AuthStatus;
-import com.hq2808.blog.modeal.UserDetailModal;
+import com.hq2808.blog.modal.UserDetailModal;
 import com.hq2808.blog.repository.user.AuthRepository;
 import com.hq2808.blog.repository.user.UserRepository;
 

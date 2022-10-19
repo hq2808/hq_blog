@@ -3,9 +3,9 @@
     <div class="container">
       <b-row class="justify-content-center">
         <b-col md="6">
-          <div class="logo-container">
+          <!-- <div class="logo-container">
             <img src="@/assets/logo_2.jpg" width="250" alt="Logo">
-          </div>
+          </div> -->
           <b-card-group>
             <b-card no-body class="p-4">
               <b-card-body>
@@ -99,9 +99,10 @@ export default class LoginPage extends Vue {
     this.isLoading = true;
     loginService.login(loginData)
       .then((data: LoginDetail) => {
+        debugger;
         if (data && data.isLoginSuccess) {
           if (data.isLogin) {
-            this.$router.push({ name: 'home' });
+            this.$router.push({ name: 'routes.admin' });
           } else {
             this.$router.push({ 
               name: 'router.reset_first_password',

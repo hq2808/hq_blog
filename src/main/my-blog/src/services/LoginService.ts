@@ -27,7 +27,7 @@ class LoginService extends Vue {
   public login(request: any): Promise<any> {
     return Vue.axios.post(this.ROOT_URL, request)
       .then((res) => {
-       
+        debugger;
         if (res.headers['x-auth-token']) {
           // Success
           const decoded: any = res.headers['x-auth-token'];
@@ -47,7 +47,11 @@ class LoginService extends Vue {
           }
         }
         return new LoginDetail({
-          isLoginSuccess: false,
+          // isLoginSuccess: false,
+          
+          // Set auto login
+          isLoginSuccess: true,
+          isLogin: true,
         });
       });
   }

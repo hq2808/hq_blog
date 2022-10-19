@@ -1,4 +1,4 @@
-package com.hq2808.blog.modeal;
+package com.hq2808.blog.modal;
 
 import com.hq2808.blog.entity.user.AuthEntity;
 import com.hq2808.blog.enumerate.UserStatus;

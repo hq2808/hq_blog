@@ -1,6 +1,7 @@
 package com.hq2808.blog.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -8,8 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
@@ -88,13 +92,53 @@ public class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter
 	 * javax.servlet.FilterChain,
 	 * org.springframework.security.core.Authentication)
 	 */
+//	@Override
+//	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+//			Authentication authResult) throws IOException, ServletException {
+//		final UserDetail authenticatedUser = this.userService.loadUserByUsername(authResult.getName());
+//		final UserAuthentication userAuthentication = new UserAuthentication(authenticatedUser);
+//		this.tokenAuthenticationService.addJwtTokenToHeader(response, userAuthentication);
+//		SecurityContextHolder.getContext().setAuthentication(userAuthentication);
+//	}
+	
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
 		final UserDetail authenticatedUser = this.userService.loadUserByUsername(authResult.getName());
 		final UserAuthentication userAuthentication = new UserAuthentication(authenticatedUser);
-		this.tokenAuthenticationService.addJwtTokenToHeader(response, userAuthentication);
+		try {
+			this.tokenAuthenticationService.addJwtTokenToHeader(response, userAuthentication);
+//			this.userService.loginSuccessHandle(authResult.getName());
+		} catch (Exception e) {
+			SecurityContextHolder.clearContext();
+			logger.info("Authentication Fail");
+			((HttpServletResponse) response).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		}
 		SecurityContextHolder.getContext().setAuthentication(userAuthentication);
+	}
+	
+	/**
+	 * Unsuccessful authentication.
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @param failed the failed
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ServletException the servlet exception
+	 */
+	@Override
+	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+			AuthenticationException failed) throws IOException, ServletException {
+		response.setContentType("application/json");
+		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		PrintWriter out = response.getWriter();
+		// Handle bad credential and locked result
+		if (failed instanceof BadCredentialsException) {
+			System.out.println("Faild");
+		} else if (failed instanceof LockedException) {
+			System.out.println("Faild");
+		}
+		out.flush();
 	}
 	
 }

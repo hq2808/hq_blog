@@ -1,29 +1,23 @@
 <template>
   <div>
-    <div class="row" v-if="data.length > 0">
-      <div class="column " v-for="(item, index) in data" :key="item.id">
-        <BlogCard :index="index" :item="item" />
-      </div>
-    </div>
+    <ListBlogCard :data="data" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { postService } from '@/services';
-import ItemCard from '@/components/shared/ItemCard.vue';
-import BlogCard from '@/components/shared/BlogCard.vue';
-import { DataTableRequest } from '@/models/shared/DataTableRequest'
+import ListBlogCard from '@/components/shared/ListBlogCard.vue';
+import { DataPageRequest } from '@/models'
 
 @Component({
   components: {
-    ItemCard,
-    BlogCard
+    ListBlogCard,
   },
 })
 export default class PostListPage extends Vue {
   private data = [];
-  private request: DataTableRequest = new DataTableRequest();
+  private request: DataPageRequest = new DataPageRequest();
   async created() {
     await postService.get(this.request).then(res => {
       this.data = res.data.data.content;

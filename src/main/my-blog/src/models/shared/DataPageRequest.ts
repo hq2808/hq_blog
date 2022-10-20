@@ -1,4 +1,4 @@
-export class DataTableRequest {
+export class DataPageRequest {
   public currentPage?: number = 1;
   public perPage?: number = 10;
   public filter: any = '';
@@ -7,7 +7,7 @@ export class DataTableRequest {
   // For dynamic properties (Loose object)
   [key: string]: any;
 
-  constructor(init?: Partial<DataTableRequest>) {
+  constructor(init?: Partial<DataPageRequest>) {
     Object.assign(this, init);
   }
 }

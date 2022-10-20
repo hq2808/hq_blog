@@ -1,3 +1,4 @@
 export * from './LoginDetails';
 export * from './UserDetail';
-export * from './DataTableRequest';
+export * from './DataPageRequest';
+export * from './DataPageSetting';

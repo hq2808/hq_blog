@@ -89,12 +89,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and().authorizeRequests()
 				.antMatchers("/webapi/auth/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/webapi/post").permitAll()
-				.antMatchers(HttpMethod.POST, "/webapi/post").authenticated();
+				.antMatchers(HttpMethod.POST, "/webapi/post").permitAll();
 //				.antMatchers("/webapi/**").authenticated();
 
 		http.addFilterBefore(
 			new StatelessLoginFilter(
-				"/webapi/auth/login",
+				"/auth/login",
 				tokenAuthenticationService,
 				appUserDetailsService,
 				authenticationManager()

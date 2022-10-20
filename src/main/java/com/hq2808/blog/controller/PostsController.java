@@ -1,6 +1,5 @@
 package com.hq2808.blog.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hq2808.blog.base.request.DataTableRequest;
+import com.hq2808.blog.base.response.Response;
 import com.hq2808.blog.dto.Post;
 import com.hq2808.blog.entity.PostEntity;
 import com.hq2808.blog.repository.PostRepository;
@@ -29,8 +30,8 @@ public class PostsController {
 	private PostRepository postsRepo;
 	
 	@GetMapping
-	public ResponseEntity<List<Post>> getAll() {
-		return ResponseEntity.ok().body(this.postsService.getAll());
+	public Response getAll(DataTableRequest request) {
+		return Response.build().data(this.postsService.getAll(request));
 	}
 	
 	@PostMapping

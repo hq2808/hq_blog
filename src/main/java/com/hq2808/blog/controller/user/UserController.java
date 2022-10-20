@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hq2808.blog.base.response.Response;
 import com.hq2808.blog.controller.BaseController;
 import com.hq2808.blog.dto.UserSignUpDto;
-import com.hq2808.blog.response.Response;
 import com.hq2808.blog.service.user.UserService;
 import com.hq2808.blog.shared.BusinessException;
 
 @RestController
-@RequestMapping("/webapi/auth")
+@RequestMapping("/auth")
 public class UserController extends BaseController{
 	
 	@Autowired

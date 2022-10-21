@@ -79,7 +79,7 @@ $color_grey_dark: #a2a2a2;
 .blog-card {
   display: flex;
   flex-direction: column;
-  margin: 1rem auto;
+  // margin: 1rem auto;
   box-shadow: 0 3px 7px -1px rgba(#000, .1);
   margin-bottom: 1.6%;
   background: $color_white;
@@ -169,7 +169,7 @@ $color_grey_dark: #a2a2a2;
     padding: 1rem;
     background: $color_white;
     position: relative;
-    z-index: 1;
+    z-index: 0;
     h1,
     h2 {
       font-family: Poppins, sans-serif;
@@ -233,7 +233,7 @@ $color_grey_dark: #a2a2a2;
 
   @media (min-width: 640px) {
     flex-direction: row;
-    max-width: 700px;
+    // max-width: 700px;
     .meta {
       flex-basis: 40%;
       height: auto;

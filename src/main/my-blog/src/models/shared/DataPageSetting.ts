@@ -5,9 +5,9 @@ export class DataPageSetting {
   }
   
   public items: any = [];
-  public totalRows: number = 0;
-  public currentPage: number = 1;
-  public perPage: number = 10;
+  public totalPosts?: number = 0;
+  public currentPage?: number = 1;
+  public perPage?: number = 10;
   public pageOptions: number[] = [10, 20, 30, 50];
 
   constructor(init?: Partial<DataPageSetting>) {

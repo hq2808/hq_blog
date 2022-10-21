@@ -6,7 +6,7 @@ import BlogPost from '../components/BlogPost.vue'
 import LoginPage from '../views/LoginPage.vue'
 import AdminLayout from '../layouts/AdminLayout.vue'
 import UserLayout from '../layouts/UserLayout.vue'
-import PostListPage from '@/views/post/PostListPage.vue'
+const PostListPage = () => import('@/views/post/PostListPage.vue');
 
 Vue.use(VueRouter)
 
@@ -14,11 +14,12 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'home',
+    redirect: '/post',
     component: UserLayout,
     children: [
       {
-        path: '/',
-        name: 'home',
+        path: '/post',
+        name: 'router.post',
         component: PostListPage
       },
       {

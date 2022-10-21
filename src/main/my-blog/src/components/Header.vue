@@ -11,7 +11,7 @@
       
        <div class="menu">
          <li><b-button to="/" variant="outline-light">Home</b-button></li>
-         <!-- <li><b-button to="/about" variant="outline-light">About</b-button></li> -->
+         <li><b-button to="/about" variant="outline-light">About</b-button></li>
          <!-- <li class="services">
            <b-button to="/" variant="outline-light">Services</b-button>
            DROPDOWN MENU
@@ -73,6 +73,7 @@ export default class Header extends Vue {
     display: flex;
     gap: 1em;
     font-size: 18px;
+    z-index: 1;
   }
   .menu li {
     padding: 5px 14px;

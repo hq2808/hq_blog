@@ -5,10 +5,8 @@ import { LoginDetail } from '@/models';
 
 class LoginService extends Vue {
   private ROOT_URL: string = process.env.VUE_APP_ROOT_API + '/auth/login';
-  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
-  private token: string = 'x-auth-token';
-  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
-  private userDetailKey: string = 'user-detail';
+  private token = 'x-auth-token';
+  private userDetailKey?: string = 'user-detail';
 
   public isAuthenticated(): boolean {
     return localStorage[this.token] !== null

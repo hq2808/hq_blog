@@ -44,7 +44,6 @@ export default class PostListPage extends Vue {
       this.dataSetting.totalPosts = res.data.data.totalElements;
     })
   }
-
   private replacePageSize(pageSize: number) {
     this.$router.replace({
       name: this.replaceRouterName(),

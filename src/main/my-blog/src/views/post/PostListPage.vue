@@ -29,7 +29,6 @@ export default class PostListPage extends Vue {
   private perPage?: number = 0;
 
   async created() {
-    debugger;
     this.currentPage = this.$route.query.currentPage
       ? Number.parseInt(Utils.getQueryParam(this.$route.query.currentPage))
       : this.dataSetting.currentPage;
@@ -40,31 +39,47 @@ export default class PostListPage extends Vue {
     
     await postService.get(this.request).then(res => {
       this.data = res.data.data.content;
-      this.dataSetting.init(this.data);
       this.dataSetting.totalPosts = res.data.data.totalElements;
+      this.dataSetting.init(this.data);
+      debugger
     })
   }
   private replacePageSize(pageSize: number) {
-    this.$router.replace({
-      name: this.replaceRouterName(),
-      query: {
-        currentPage: '1',
-        pageSize: pageSize.toString(),
-      }
+    this.request.perPage = pageSize;
+    this.request.currentPage = 1;
+    postService.get(this.request).then(res => {
+      this.data = res.data.data.content;
+      this.dataSetting.totalPosts = res.data.data.totalElements;
+      this.dataSetting.init(this.data);
     });
+    // (this.$refs.listBlog as any).refreshTable();
+    // this.$router.replace({
+    //   name: this.replaceRouterName(),
+    //   query: {
+    //     currentPage: '1',
+    //     pageSize: pageSize.toString(),
+    //   }
+    // });
   }
 
   private replacePageNumber(page: number) {
-    debugger;
-    this.$router.replace({
-      name: this.replaceRouterName(),
-      query: {
-        currentPage: page.toString(),
-        pageSize: this.$route.query.perPage
-      ? Number.parseInt(Utils.getQueryParam(this.$route.query.perPage)).toString()
-      : this.dataSetting.perPage?.toString(), 
-      }
+    this.request.currentPage = page;
+    postService.get(this.request).then(res => {
+      this.data = res.data.data.content;
+      this.dataSetting.totalPosts = res.data.data.totalElements;
+      this.dataSetting.init(this.data);
     });
+    (this.$refs.listBlog as any).refreshTable();
+    // debugger;
+    // this.$router.replace({
+    //   name: this.replaceRouterName(),
+    //   query: {
+    //     currentPage: page.toString(),
+    //     pageSize: this.$route.query.perPage
+    //   ? Number.parseInt(Utils.getQueryParam(this.$route.query.perPage)).toString()
+    //   : this.dataSetting.perPage?.toString(), 
+    //   }
+    // });
   }
 
   private replaceRouterName() {

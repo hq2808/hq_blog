@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="page">
     <div class="row" v-if="setting.items.length > 0">
       <div class="column " v-for="(item, index) in setting.items" :key="item.id">
         <BlogCard :index="index" :item="item" />
@@ -37,12 +37,22 @@ export default class ListBlogCard extends Vue {
   @Prop() public setting!: DataPageSetting;
   @Prop() public currentPage!: number;
 
+  created() {
+    console.log(this.setting);
+    console.log(this.currentPage);
+    debugger
+    
+  }
+
   private changePageSize(size: number) {
     this.$emit('changePageSize', size);
   }
 
   private changePageNumber(page: number) {
     this.$emit('changePageNumber', page);
+  }
+  private refreshTable() {
+    (this.$refs.page as any).refresh();
   }
 }
 </script>

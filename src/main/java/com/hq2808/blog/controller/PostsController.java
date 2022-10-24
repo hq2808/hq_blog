@@ -34,6 +34,11 @@ public class PostsController {
 		return Response.build().data(this.postsService.getAll(request));
 	}
 	
+	@GetMapping("/{id}")
+	public Response findById(@PathVariable("id") String id) {
+		return Response.build().data(this.postsService.findById(id));
+	}
+	
 	@PostMapping
 	public ResponseEntity<Post> save(@RequestBody Post post) {
 		return ResponseEntity.ok().body(this.postsService.saveAndUpdate(post));

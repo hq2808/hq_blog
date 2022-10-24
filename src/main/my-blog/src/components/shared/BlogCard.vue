@@ -4,24 +4,25 @@
     <div class="meta">
       <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-1.jpg)"></div>
       <ul class="details">
-        <li class="author"><a href="#">John Doe</a></li>
-        <li class="date">Aug. 24, 2015</li>
-        <li class="tags">
+        <li class="author"><a href="#">{{item.user ? item.user.username : ''}}</a></li>
+        <li class="date">{{item.createdAt}}</li>
+        <!-- <li class="tags">
           <ul>
             <li><a href="#">Learn</a></li>
             <li><a href="#">Code</a></li>
             <li><a href="#">HTML</a></li>
             <li><a href="#">CSS</a></li>
           </ul>
-        </li>
+        </li> -->
       </ul>
     </div>
     <div class="description">
-      <h1>Learning to Code</h1>
-      <h2>Opening a door to the future</h2>
-      <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.</p>
+      <h1>{{item.title}}</h1>
+      <!-- <h2>Opening a door to the future</h2> -->
+      <pre>{{item.content}}</pre>
       <p class="read-more">
-        <a href="#">Read More</a>
+        <b-button v-if="isAdmin" @click="goToDetail">Edit</b-button>
+        <a v-else href="#">Read More</a>
       </p>
     </div>
   </div>
@@ -29,23 +30,24 @@
     <div class="meta">
       <div class="photo" style="background-image: url(https://storage.googleapis.com/chydlx/codepen/blog-cards/image-2.jpg)"></div>
       <ul class="details">
-        <li class="author"><a href="#">Jane Doe</a></li>
-        <li class="date">July. 15, 2015</li>
-        <li class="tags">
+        <li class="author"><a href="#">{{item.user ? item.user.username : ''}}</a></li>
+        <li class="date">{{item.createdAt}}</li>>
+        <!-- <li class="tags">
           <ul>
             <li><a href="#">Learn</a></li>
             <li><a href="#">Code</a></li>
             <li><a href="#">JavaScript</a></li>
           </ul>
-        </li>
+        </li> -->
       </ul>
     </div>
     <div class="description">
-      <h1>Mastering the Language</h1>
-      <h2>Java is not the same as JavaScript</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto obcaecati enim dicta praesentium, quam nobis! Neque ad aliquam facilis numquam. Veritatis, sit.</p>
+      <h1>{{item.title}}</h1>
+      <!-- <h2>Java is not the same as JavaScript</h2> -->
+      <pre>{{item.content}}</pre>
       <p class="read-more">
-        <a href="#">Read More</a>
+        <b-button v-if="isAdmin" @click="goToDetail">Edit</b-button>
+        <a v-else href="#">Read More</a>
       </p>
     </div>
   </div>
@@ -59,6 +61,17 @@ import {Component, Prop, Vue} from 'vue-property-decorator';
 export default class BlogCard extends Vue {
   @Prop() item: any;
   @Prop() index!: number;
+  private isAdmin?: boolean = false;
+
+  private created() {
+    if(this.$router.currentRoute.fullPath === "/admin/post") {
+      this.isAdmin = true
+    }
+  }
+
+  private goToDetail(id: any) {
+    this.$emit('goToDetail', id);
+  }
 }
 </script>
 <style lang="scss" scoped>

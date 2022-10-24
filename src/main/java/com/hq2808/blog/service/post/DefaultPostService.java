@@ -1,11 +1,9 @@
 package com.hq2808.blog.service.post;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +37,15 @@ public class DefaultPostService implements PostService{
 	public Page<Post> getAll(DataTableRequest request) {
 		Pageable pageable = request.toPageable();
 		return this.repo.findAll(pageable).map(PostEntity::toDomain);
+	}
+
+	@Override
+	public Post findById(String id) {
+		Optional<PostEntity> optPost = this.repo.findById(id);
+		if(optPost.isEmpty()) {
+			return null;
+		}
+		return optPost.get().toDomain();
 	}
 
 }

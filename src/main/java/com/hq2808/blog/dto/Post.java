@@ -1,5 +1,7 @@
 package com.hq2808.blog.dto;
 
+import java.time.LocalDateTime;
+
 import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
@@ -40,4 +42,7 @@ public class Post {
 	
 	/** The user. */
 	private User user;
+	
+	/** The create at. */
+	private LocalDateTime createdAt;
 }

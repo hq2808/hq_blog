@@ -1,11 +1,17 @@
 <template>
   <div>
+    <b-row v-if="isAdmin" class="justify-content-center">
+      <b-col cols="auto" >
+        <b-button @click="addNewPost" variant="success">+</b-button>
+      </b-col>
+    </b-row>
     <ListBlogCard
       ref="listBlog"
       :setting="dataSetting"
       :currentPage="dataSetting.currentPage"
       @changePageSize="replacePageSize"
       @changePageNumber="replacePageNumber"
+      @goToDetail="goToDetail"
     />
   </div>
 </template>
@@ -27,8 +33,12 @@ export default class PostListPage extends Vue {
   private request: DataPageRequest = new DataPageRequest();
   private currentPage?: number = 0;
   private perPage?: number = 0;
+  private isAdmin?: boolean = false;
 
   async created() {
+    if(this.$router.currentRoute.path === "/admin/post") {
+      this.isAdmin = true;
+    }
     this.currentPage = this.$route.query.currentPage
       ? Number.parseInt(Utils.getQueryParam(this.$route.query.currentPage))
       : this.dataSetting.currentPage;
@@ -37,17 +47,16 @@ export default class PostListPage extends Vue {
       ? Number.parseInt(Utils.getQueryParam(this.$route.query.perPage))
       : this.dataSetting.perPage;
     
-    await postService.get(this.request).then(res => {
+    await postService.getAll(this.request).then(res => {
       this.data = res.data.data.content;
       this.dataSetting.totalPosts = res.data.data.totalElements;
       this.dataSetting.init(this.data);
-      debugger
     })
   }
   private replacePageSize(pageSize: number) {
     this.request.perPage = pageSize;
     this.request.currentPage = 1;
-    postService.get(this.request).then(res => {
+    postService.getAll(this.request).then(res => {
       this.data = res.data.data.content;
       this.dataSetting.totalPosts = res.data.data.totalElements;
       this.dataSetting.init(this.data);
@@ -64,12 +73,11 @@ export default class PostListPage extends Vue {
 
   private replacePageNumber(page: number) {
     this.request.currentPage = page;
-    postService.get(this.request).then(res => {
-      this.data = res.data.data.content;
+    postService.getAll(this.request).then(res => {
+      this.data = res.data.content;
       this.dataSetting.totalPosts = res.data.data.totalElements;
       this.dataSetting.init(this.data);
     });
-    (this.$refs.listBlog as any).refreshTable();
     // debugger;
     // this.$router.replace({
     //   name: this.replaceRouterName(),
@@ -82,8 +90,21 @@ export default class PostListPage extends Vue {
     // });
   }
 
+  private goToDetail(id: any) {
+    this.$router.push({
+      name: "routes.post_edit",
+      params: {id: id}
+    })
+  }
+
   private replaceRouterName() {
     return 'home';
+  }
+
+  private addNewPost() {
+    this.$router.push({
+      name: 'routes.post_add'
+    })
   }
 }
 </script>

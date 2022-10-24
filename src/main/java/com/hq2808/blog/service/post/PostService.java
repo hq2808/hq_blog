@@ -10,6 +10,7 @@ import com.hq2808.blog.dto.Post;
 public interface PostService {
 	Optional<Post> getById(String id);
 	Page<Post> getAll(DataTableRequest request);
+	Post findById(String id);
 	Post saveAndUpdate(Post post);
 	void delete(Post post);
 }

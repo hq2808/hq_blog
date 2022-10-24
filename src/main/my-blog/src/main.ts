@@ -30,6 +30,15 @@ Vue.use(Vuetify)
 
 Vue.config.productionTip = false
 
+import Toasted from 'vue-toasted';
+Vue.use(Toasted)
+// Vue.use(Toasted, {
+//   position: 'bottom-right',
+//   duration: 5000,
+//   singleton: true,
+//   // theme: 'outline'
+// });
+
 // axios.interceptors.request.use((config) => {
 //   // Do something before request is sent
 //   //check fist time login
@@ -51,8 +60,16 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 
 Vue.use(VueAxios, axios);
-new Vue({
+// new Vue({
+//   router,
+//   store,
+//   render: h => h(App)
+// }).$mount('#app')
+
+
+const mainApp = new Vue({
   router,
   store,
-  render: h => h(App)
-}).$mount('#app')
+  render: (h) => h(App),
+}).$mount('#app');
+export default mainApp;

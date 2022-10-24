@@ -7,6 +7,7 @@ import LoginPage from '../views/LoginPage.vue'
 import AdminLayout from '../layouts/AdminLayout.vue'
 import UserLayout from '../layouts/UserLayout.vue'
 const PostListPage = () => import('@/views/post/PostListPage.vue');
+import PostEditPage from '../views/post/PostEditPage.vue';
 
 Vue.use(VueRouter)
 
@@ -49,35 +50,33 @@ const routes: Array<RouteConfig> = [
   {
     path: '/admin',
     name: 'routes.admin',
+    redirect: '/admin/post',
     component: AdminLayout,
     meta: { },
-    // children: [
-    //   {
-    //     path: 'post',
-    //     name: 'routes.post',
-    //     component: Dashboard,
-    //     meta: {},
-    //     children: [
-    //       {
-    //         path: 'list',
-    //         component: PicManagementListPage,
-    //         meta: { requiresAuth: true, adminAuth: true, userAuth: true, isMenu: true },
-    //       },
-    //       {
-    //         path: 'add',
-    //         name: 'routes.pic_management_add',
-    //         component: PicManagementEditPage,
-    //         meta: { requiresAuth: true, adminAuth: true, userAuth: true },
-    //       },
-    //       {
-    //         path: 'edit/:id',
-    //         name: 'routes.pic_management_edit',
-    //         component: PicManagementEditPage,
-    //         meta: { requiresAuth: true, adminAuth: true, userAuth: true },
-    //       },
-    //     ]
-    //   },
-    // ]
+    children: [
+      {
+        path: 'post',
+        name: 'routes.post',
+        component: PostListPage,
+        // children: [
+        //   {
+        //     path: 'edit/:id',
+        //     name: 'routes.post_edit',
+        //     component: PostEditPage,
+        //   }
+        // ]
+      },
+      {
+        path: 'edit/:id',
+        name: 'routes.post_edit',
+        component: PostEditPage,
+      },
+      {
+        path: 'add',
+        name: 'routes.post_add',
+        component: PostEditPage,
+      }
+    ]
   }
 ]
 

@@ -81,7 +81,8 @@ public class PostEntity extends BaseEntity{
 				.image(this.image)
 				.status(this.status)
 				.published(this.published)
-				.user(this.userEntity.toDomain())
+//				.user(this.userEntity.toDomain())
+				.createdAt(this.getCreatedAt())
 				.build();
 	}
 	
@@ -97,7 +98,7 @@ public class PostEntity extends BaseEntity{
 				.image(domain.getImage())
 				.status(domain.getStatus())
 				.published(domain.getPublished())
-				.userEntity(domain.getUser() != null ? UserEntity.toEntity(domain.getUser()) : null)
+//				.userEntity(domain.getUser() != null ? UserEntity.toEntity(domain.getUser()) : null)
 				.build();
 	}
 	

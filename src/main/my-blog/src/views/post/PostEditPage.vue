@@ -80,7 +80,6 @@ export default class PostEditPage extends Vue {
     } else {
       // save new Post
       postService.save(this.data).then((res) => {
-        debugger;
         if(res.status === 200) {
           toastService.successMessage('Thêm thành công!');
           this.$router.back();

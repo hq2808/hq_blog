@@ -19,7 +19,7 @@
     <div class="description">
       <h1>{{item.title}}</h1>
       <!-- <h2>Opening a door to the future</h2> -->
-      <pre>{{item.content}}</pre>
+      <pre class="custom-text-content">{{item.content}}</pre>
       <p class="read-more">
         <b-button v-if="isAdmin" @click="goToDetail">Edit</b-button>
         <a v-else href="#">Read More</a>
@@ -44,7 +44,7 @@
     <div class="description">
       <h1>{{item.title}}</h1>
       <!-- <h2>Java is not the same as JavaScript</h2> -->
-      <pre>{{item.content}}</pre>
+      <pre  class="custom-text-content">{{item.content}}</pre>
       <p class="read-more">
         <b-button v-if="isAdmin" @click="goToDetail">Edit</b-button>
         <a v-else href="#">Read More</a>
@@ -88,6 +88,12 @@ $color_white: #fff;
 $color_prime: #5ad67d;
 $color_grey: #e2e2e2;
 $color_grey_dark: #a2a2a2;
+
+.custom-text-content {
+  height: 94px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .blog-card {
   display: flex;

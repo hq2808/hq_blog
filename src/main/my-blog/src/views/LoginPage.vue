@@ -99,7 +99,6 @@ export default class LoginPage extends Vue {
     this.isLoading = true;
     loginService.login(loginData)
       .then((data: LoginDetail) => {
-        debugger;
         if (data && data.isLoginSuccess) {
           if (data.isLogin) {
             this.$router.push({ name: 'routes.admin' });

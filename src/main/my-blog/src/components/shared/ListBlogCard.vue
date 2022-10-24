@@ -6,12 +6,12 @@
       </div>
     </div>
     <div class="d-flex flex-end mt-3">
-      <b-form-select
+      <!-- <b-form-select
         :options="setting.pageOptions"
         :value="setting.perPage"
         @change="changePageSize"
         class="page-selector"
-      />
+      /> -->
       <b-pagination
         v-model="currentPage"
         :total-rows="setting.totalPosts"

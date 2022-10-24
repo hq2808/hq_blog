@@ -74,11 +74,11 @@ export default class PostListPage extends Vue {
   private replacePageNumber(page: number) {
     this.request.currentPage = page;
     postService.getAll(this.request).then(res => {
-      this.data = res.data.content;
+      this.data = res.data.data.content;
       this.dataSetting.totalPosts = res.data.data.totalElements;
       this.dataSetting.init(this.data);
     });
-    // debugger;
+    // (this.$refs.listBlog as any).refreshTable();
     // this.$router.replace({
     //   name: this.replaceRouterName(),
     //   query: {

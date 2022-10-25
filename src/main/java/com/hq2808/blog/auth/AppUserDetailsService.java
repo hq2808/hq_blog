@@ -30,7 +30,6 @@ public class AppUserDetailsService implements UserDetailsService{
 		UserDetail userDetail = new UserDetail(optUser.get().getUsername()
 				, optUser.get().getPassword()
 				, Arrays.asList(new SimpleGrantedAuthority(optUser.get().getRole())));
-		userDetail.setLogin(optUser.get().getIsLogin());
 		return userDetail;
 	}
 

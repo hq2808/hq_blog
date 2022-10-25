@@ -20,8 +20,4 @@ public class UserDetail extends User{
 	public UserDetail(String username, String password, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
 	}
-	
-	/** The is login. */
-	private boolean isLogin;
-
 }

@@ -87,10 +87,6 @@ public class UserEntity extends BaseEntity{
 	@Column(name = "status")
 	private Integer status;
 	
-	/** The isLogin. */
-	@Column(name = "isLogin")
-	private Boolean isLogin;
-	
 	@ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "users_authorities",
@@ -156,7 +152,6 @@ public class UserEntity extends BaseEntity{
 				.role(role.getValue())
 				.fullname(fullname)
 				.status(UserStatus.ACTIVE.value)
-				.isLogin(false)
 				.build();
 	}
 }

@@ -41,7 +41,6 @@ public class JwtTokenHandler {
 		return Jwts.builder()
 				.claim("username", user.getUsername())
 				.claim("role", roles.isEmpty() ? null : roles.get(0).getAuthority())
-				.claim("isLogin", user.isLogin())
 				.signWith(SignatureAlgorithm.HS512, secret)
 				.setExpiration(Date.from(afterOneWeek.toInstant()))
 				.compact();

@@ -53,9 +53,6 @@ public class User {
 	/** The status. */
 	private Integer status;
 	
-	/** The isLogin. */
-	private Boolean isLogin;
-	
 	private Collection<AuthorityEntity> authorities;
 	
 	private AuthEntity auth;

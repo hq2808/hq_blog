@@ -43,12 +43,9 @@ Vue.use(Toasted)
 
 axios.interceptors.request.use((config) => {
   // Do something before request is sent
-  if(localStorage['x-auth-token']){
-    const decoded: any = jwt_decode(localStorage['x-auth-token']);
-    // if (!decoded.isLogin) {
-    //   router.push({ name: 'routes.login' });
-    // }
-  }
+  // if(localStorage['x-auth-token']){
+  //   const decoded: any = jwt_decode(localStorage['x-auth-token']);
+  // }
   NProgress.start();
   return loginService.addToken(config);
 }, (error) => {

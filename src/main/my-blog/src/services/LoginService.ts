@@ -30,7 +30,6 @@ class LoginService extends Vue {
           const decoded: any = res.headers['x-auth-token'];
           return new LoginDetails({
             email: decoded.username,
-            isLogin: true,
             isLoginSuccess: true,
           });
         }

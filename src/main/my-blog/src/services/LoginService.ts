@@ -1,7 +1,7 @@
 import Vue from 'vue';
 // import jwt_decode from 'jwt-decode';
 
-import { LoginDetail } from '@/models';
+import { LoginDetails } from '@/models';
 
 class LoginService extends Vue {
   private ROOT_URL: string = process.env.VUE_APP_ROOT_API + '/auth/login';
@@ -28,27 +28,14 @@ class LoginService extends Vue {
         if (res.headers['x-auth-token']) {
           // Success
           const decoded: any = res.headers['x-auth-token'];
-          if (decoded.isLogin) {
-            localStorage[this.token] = res.headers['x-auth-token'];
-            return new LoginDetail({
-              isLogin: true,
-              isLoginSuccess: true,
-            });
-          } else {
-            localStorage[this.token] = res.headers['x-auth-token'];
-            return new LoginDetail({
-              email: decoded.username,
-              isLogin: false,
-              isLoginSuccess: true,
-            });
-          }
+          return new LoginDetails({
+            email: decoded.username,
+            isLogin: true,
+            isLoginSuccess: true,
+          });
         }
-        return new LoginDetail({
-          // isLoginSuccess: false,
-          
-          // Set auto login
-          isLoginSuccess: true,
-          isLogin: true,
+        return new LoginDetails({
+          isLoginSuccess: false,
         });
       });
   }

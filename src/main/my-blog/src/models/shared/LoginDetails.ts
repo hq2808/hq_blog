@@ -1,9 +1,9 @@
-export class LoginDetail {
+export class LoginDetails {
   public email?: string;
   public isLogin?: boolean;
   public isLoginSuccess?: boolean;
 
-  constructor(init?: LoginDetail) {
+  constructor(init?: LoginDetails) {
     Object.assign(this, init);
   }
 }

@@ -8,6 +8,10 @@ class ToastService extends Vue {
     Vue.toasted.success(messenger);
   }
 
+  public error(messenger: string) {
+    Vue.toasted.error(messenger);
+  }
+
   // public error(code: number, messenger?: string) {
   //   let showMessage = '';
   //   if (code === ResponseCodeEnum.CODE_PERMISSION) {

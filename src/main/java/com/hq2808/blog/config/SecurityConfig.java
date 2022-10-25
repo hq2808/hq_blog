@@ -72,7 +72,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		configuration.setAllowedOrigins(Arrays.asList("*"));
 		configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
 		configuration.setAllowCredentials(false);
-		configuration.setAllowedHeaders(Arrays.asList("*"));
+		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", TokenAuthService.AUTH_HEADER_NAME, "x-file-name"));
+		configuration.setExposedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", TokenAuthService.AUTH_HEADER_NAME, "x-file-name"));
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
@@ -86,7 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and().authorizeRequests()
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
 				.antMatchers("/webapi/auth/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/webapi/post").permitAll()
 				.antMatchers(HttpMethod.POST, "/webapi/post").permitAll();

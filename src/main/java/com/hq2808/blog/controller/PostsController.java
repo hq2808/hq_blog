@@ -12,16 +12,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hq2808.blog.base.ExpiredException;
 import com.hq2808.blog.base.request.DataTableRequest;
 import com.hq2808.blog.base.response.Response;
 import com.hq2808.blog.dto.Post;
+import com.hq2808.blog.dto.User;
 import com.hq2808.blog.entity.PostEntity;
 import com.hq2808.blog.repository.PostRepository;
 import com.hq2808.blog.service.post.PostService;
 
 @RestController
 @RequestMapping("/webapi/post")
-public class PostsController {
+public class PostsController extends BaseController{
 	
 	@Autowired
 	private PostService postsService;
@@ -40,8 +42,22 @@ public class PostsController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Post> save(@RequestBody Post post) {
-		return ResponseEntity.ok().body(this.postsService.saveAndUpdate(post));
+	public Response save(@RequestBody Post post) throws ExpiredException {
+		Optional<User> oCurrentUser = this.getCurrentUser();
+		// if user login not exist
+		if (!oCurrentUser.isPresent()) {
+			return Response.build().code(Response.CODE_PERMISSION);
+		}
+		
+		switch(oCurrentUser.get().getRole()) {
+		case ADMIN: 
+			break;
+		default:
+			return Response.build().code(Response.CODE_PERMISSION);
+			
+		}
+		post.setUser(oCurrentUser.get());
+		return Response.build().ok().data(this.postsService.saveAndUpdate(post));
 	}
 	
 	@PutMapping("/{id}")

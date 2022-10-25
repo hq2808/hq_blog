@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.hq2808.blog.base.ExpiredException;
-import com.hq2808.blog.entity.user.AuthEntity;
-import com.hq2808.blog.enumerate.AuthStatus;
-import com.hq2808.blog.modal.UserDetailModal;
-import com.hq2808.blog.repository.user.AuthRepository;
+import com.hq2808.blog.dto.User;
+import com.hq2808.blog.entity.user.UserEntity;
 import com.hq2808.blog.repository.user.UserRepository;
 
 public abstract class BaseController {
@@ -18,26 +16,18 @@ public abstract class BaseController {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private AuthRepository authRepository;
-	
-	
-	protected Optional<UserDetailModal> getCurrentUser() throws ExpiredException {
-		AuthEntity currentAuth = this.getCurrentUserEntity(AuthStatus.ACTIVE)
-				.orElseThrow(() -> new ExpiredException("token expire"));
-		
-		return this.userRepository.findByAuthId(currentAuth.getId()).map((model) -> {
-			return UserDetailModal.builder().userId(model.getId()).auth(model.getAuth()).age(model.getAge())
-					.email(model.getEmail()).fullname(model.getFullname()).build();
-		});
+	protected Optional<User> getCurrentUser() throws ExpiredException {
+		UserEntity userEntity = this.getCurrentUserEntity()
+				.orElseThrow(() -> new ExpiredException("Token expired"));
+		return Optional.of(userEntity.toDomain());
 	}
 	
-	protected Optional<AuthEntity> getCurrentUserEntity(AuthStatus authStatus) {
+	protected Optional<UserEntity> getCurrentUserEntity() {
 		Authentication userAuthentication = SecurityContextHolder.getContext().getAuthentication();
 		if (userAuthentication == null) {
 			return Optional.empty();
 		}
 		String principal = userAuthentication.getName();
-		return this.authRepository.findByUsernameAndStatus(principal, authStatus);
+		return this.userRepository.findByUsernameOrEmail(principal, principal);
 	}
 }

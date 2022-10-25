@@ -85,7 +85,7 @@ public class DefaultUserService implements UserService{
 	public User signup(UserSignUpDto user) throws BusinessException {
 		Optional<UserEntity> oUser = this.repo.findByUsernameOrEmail(user.getUsername(), user.getEmail());
 		if (oUser.isPresent()) {
-			throw new BusinessException("business_exception.user.username_or_email_registed");
+			throw new BusinessException("username_or_email_registed");
 		}
 		UserEntity newUser = UserEntity.createUserActive(user.getUsername(), user.getEmail(), user.getPassword(), Roles.USER, user.getFullname());
 		return this.repo.save(newUser).toDomain();

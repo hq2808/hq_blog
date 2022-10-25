@@ -74,7 +74,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import {loginService} from '@/services';
-import { LoginDetail } from '@/models';
+import { LoginDetails } from '@/models';
 
 @Component
 export default class LoginPage extends Vue {
@@ -98,16 +98,9 @@ export default class LoginPage extends Vue {
     };
     this.isLoading = true;
     loginService.login(loginData)
-      .then((data: LoginDetail) => {
+      .then((data: LoginDetails) => {
         if (data && data.isLoginSuccess) {
-          if (data.isLogin) {
-            this.$router.push({ name: 'routes.admin' });
-          } else {
-            this.$router.push({ 
-              name: 'router.reset_first_password',
-              params: { email: data.email || ''}
-            });
-          }
+          this.$router.push({ name: 'routes.admin' });
         }
       })
       .catch((error) => {

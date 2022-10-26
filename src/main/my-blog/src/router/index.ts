@@ -51,7 +51,7 @@ const routes: Array<RouteConfig> = [
     path: '/admin',
     name: 'routes.admin',
     redirect: '/admin/post',
-    component: AdminLayout,
+    component: UserLayout,
     meta: { },
     children: [
       {

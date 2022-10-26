@@ -1,10 +1,10 @@
 <template>
-  <div class="home">
-    <div class="main_grapper">
+    <div class="home">
+    <header class="main-navbar">
       <Header />
-      <div class="container">
-        <router-view/>
-      </div>
+    </header>
+    <div class="container">
+      <router-view/>
     </div>
     <Footer />
   </div>
@@ -23,5 +23,14 @@ import Footer from '@/components/Footer.vue'
 export default class UserLayout extends Vue {}
 </script>
 <style scoped>
-
+  .main-navbar {
+    position: -webkit-sticky;
+    position: sticky;
+    width: 100%;
+    top: 0;
+    z-index: 1030;
+    background-color: #fff;
+    box-shadow: 0 4px 4px 0 rgb(0 0 0 / 10%);
+    height: 88px;
+  }
 </style>

@@ -27,6 +27,7 @@ class LoginService extends Vue {
       .then((res) => {
         if (res.headers['x-auth-token']) {
           // Success
+          localStorage[this.token] = res.headers['x-auth-token'];
           const decoded: any = res.headers['x-auth-token'];
           return new LoginDetails({
             email: decoded.username,

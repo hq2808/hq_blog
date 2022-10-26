@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import Vuesax from 'vuesax'
 import store from './store';
-import jwt_decode from 'jwt-decode';
+// import jwt_decode from 'jwt-decode';
 
 import { loginService, toastService } from '@/services';
 

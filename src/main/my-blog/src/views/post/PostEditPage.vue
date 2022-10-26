@@ -55,6 +55,8 @@ export default class PostEditPage extends Vue {
   private id?: string = '';
 
   async created() {
+    console.log(this.$store.state.user);
+    
     if(this.$router.currentRoute.params.id) {
       this.isEdit = true;
       this.id = this.$router.currentRoute.params.id;

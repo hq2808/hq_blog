@@ -73,8 +73,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import {loginService} from '@/services';
+import { loginService, userService} from '@/services';
 import { LoginDetails } from '@/models';
+import store from '../../src/store';
 
 @Component
 export default class LoginPage extends Vue {
@@ -100,7 +101,16 @@ export default class LoginPage extends Vue {
     loginService.login(loginData)
       .then((data: LoginDetails) => {
         if (data && data.isLoginSuccess) {
-          this.$router.push({ name: 'routes.admin' });
+          // add use in store
+          userService.getUserDetail().then((res: any) => {
+          const user = res.data.data;
+          if (user && user.role) {
+            store.dispatch('setUser', user);
+            store.dispatch('setTimeSignin', new Date());
+          }
+        });
+        // router to List post
+        this.$router.push({ name: 'routes.admin' });
         }
       })
       .catch((error) => {

@@ -1,10 +1,10 @@
 <template>
-  <div ref="page">
-    <div class="row" v-if="setting.items.length > 0">
-      <div class="column " v-for="(item, index) in setting.items" :key="item.id">
-        <BlogCard :index="index" :item="item" @goToDetail="goToDetail(item.id)" />
-      </div>
-    </div>
+  <div ref="page" v-if="setting.items.length > 0">
+    <b-row v-for="(item, index) in setting.items" :key="item.id">
+      <b-col >
+        <BlogCard :index="index" :item="item" @goToDetail="goToDetail(item.id)" @readMore="goReadMore(item.id)"/>
+      </b-col>
+    </b-row>
     <div class="d-flex flex-end mt-3">
       <!-- <b-form-select
         :options="setting.pageOptions"
@@ -45,8 +45,11 @@ export default class ListBlogCard extends Vue {
     this.$emit('changePageNumber', page);
   }
 
-  private goToDetail(item: any) {
-    this.$emit('goToDetail', item);
+  private goToDetail(id: any) {
+    this.$emit('goToDetail', id);
+  }
+  private goReadMore(id: any) {
+    this.$emit('goReadMore', id);
   }
   private refreshTable() {
     (this.$refs.page as any).refresh();

@@ -12,6 +12,7 @@
       @changePageSize="replacePageSize"
       @changePageNumber="replacePageNumber"
       @goToDetail="goToDetail"
+      @goReadMore="goReadMore"
     />
   </div>
 </template>
@@ -94,6 +95,13 @@ export default class PostListPage extends Vue {
     this.$router.push({
       name: "routes.post_edit",
       params: {id: id}
+    })
+  }
+
+  private goReadMore(id: any) {
+    this.$router.push({
+      name: 'blog-post',
+      params: {slug: id}
     })
   }
 

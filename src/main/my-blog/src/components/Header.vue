@@ -28,15 +28,35 @@
          <li><b-icon icon="search"></b-icon></li>
        </div>
      </ul>
+     <b-button v-if="!isLogin" @click="login">Login</b-button>
+     <b-button v-if="isLogin" @click="logout">Logout</b-button>
+     <b-button v-if="!isLogin" @click="register">Register</b-button>
    </nav>
 </template>
 
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
-
+import { loginService } from '@/services';
 @Component
 export default class Header extends Vue {
-
+  private isLogin?: boolean = false
+  private created() {
+    if(this.$store.state.user) {
+      this.isLogin = true;
+    }
+  }
+  private logout() {
+    loginService.logout();
+    // this.$router.push({
+    //   name: 'router.post'
+    // })
+    this.$router.go(0)
+  }
+  private login() {
+    this.$router.push({
+      name: 'routes.login'
+    })
+  }
 }
 </script>
 <style scoped>

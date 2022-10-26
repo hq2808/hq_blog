@@ -3,7 +3,7 @@
     <header class="main-navbar">
       <Header />
     </header>
-    <div class="container">
+    <div class="container mt-3">
       <router-view/>
     </div>
     <Footer />

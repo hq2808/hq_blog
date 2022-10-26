@@ -84,7 +84,14 @@ axios.interceptors.response.use((res) => {
       toastService.errorMessage(error.response.data.error);
     } else if (error.response.status === 401) {
       // Logout
-      toastService.error("CODE_EXPIRED");
+      // toastService.error("CODE_EXPIRED", {
+      //   position: "bottom-right", 
+      //   duration : 1000
+      // });
+      mainApp.$toasted.error("CODE_EXPIRED", {
+        position: "bottom-right", 
+        duration : 1000
+      });
       loginService.logout();
       router.push({ name: 'routes.login' });
     }
@@ -93,6 +100,14 @@ axios.interceptors.response.use((res) => {
   }
   return Promise.reject(error);
 });
+
+import VueQuillEditor from 'vue-quill-editor'
+
+import 'quill/dist/quill.core.css' // import styles
+import 'quill/dist/quill.snow.css' // for snow theme
+import 'quill/dist/quill.bubble.css' // for bubble theme
+
+Vue.use(VueQuillEditor, /* { default global options } */)
 
 import axios from 'axios';
 import VueAxios from 'vue-axios';

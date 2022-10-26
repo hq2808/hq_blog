@@ -4,13 +4,11 @@
       <b-form novalidate>
         <b-form-group
           label-cols-lg="3"
-          label="Post"
           label-size="lg"
           label-class="font-weight-bold pt-0"
           class="mb-0"
         >
-
-          <b-row class="my-1">
+          <!-- <b-row class="my-1">
             <b-col sm="2">
               <label for="title">Title:</label>
             </b-col>
@@ -18,7 +16,6 @@
               <b-form-input id="title" placeholder="Input title" v-model="data.title"></b-form-input>
             </b-col>
           </b-row>
-
           <b-row class="my-1">
             <b-col sm="2">
               <label for="content">Content:</label>
@@ -26,7 +23,22 @@
             <b-col sm="9">
               <b-form-textarea id="content" placeholder="Input content" v-model="data.content"></b-form-textarea>
             </b-col>
-          </b-row> 
+          </b-row> -->
+          <b-row>
+            <b-col>
+              <b-form-input id="title" placeholder="Title" v-model="data.title"></b-form-input>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
+              <!-- Two-way Data-Binding -->
+              <quill-editor
+                ref="myQuillEditor"
+                v-model="data.content"
+                :options="editorOption"
+              />
+            </b-col>
+          </b-row>
         </b-form-group>
         <b-row class="justify-content-center">
           <b-col cols="auto" >
@@ -34,7 +46,6 @@
           </b-col>
         </b-row>
       </b-form>
-
     </b-card>
   </div>
 </template>
@@ -105,5 +116,8 @@ export default class PostEditPage extends Vue {
   content: "";
   display: table;
   clear: both;
+}
+.ql-editor {
+  min-height: 400px !important;
 }
 </style>

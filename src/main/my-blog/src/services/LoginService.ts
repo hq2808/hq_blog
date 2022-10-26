@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import store from '../../src/store';
 // import jwt_decode from 'jwt-decode';
 
 import { LoginDetails } from '@/models';
@@ -43,7 +44,7 @@ class LoginService extends Vue {
   public logout(): Promise<any> {
     // TODO: Server-side token handler
     localStorage[this.token] = '';
-    // localStorage[this.userDetailKey] = '';
+    store.dispatch('setUser', null);
     return Promise.resolve(true);
   }
 }

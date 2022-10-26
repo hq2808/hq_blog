@@ -11,6 +11,7 @@ import LoginPage from '../views/LoginPage.vue'
 import UserLayout from '../layouts/UserLayout.vue'
 const PostListPage = () => import('@/views/post/PostListPage.vue');
 import PostEditPage from '../views/post/PostEditPage.vue';
+import ReadPost from '@/views/post/ReadPost.vue'
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,11 @@ const router = new VueRouter({
           name: 'about',
           component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
         },
+        {
+          path: '/blog/:slug',
+          name: 'blog-post',
+          component: ReadPost
+        },
       ]
     },
     
@@ -41,11 +47,6 @@ const router = new VueRouter({
       path: '/blog/',
       name: 'blog-home',
       component: BlogHome
-    },
-    {
-      path: '/blog/:slug',
-      name: 'blog-post',
-      component: BlogPost
     },
     {
       path: '/login',

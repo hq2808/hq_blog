@@ -1,74 +1,38 @@
 <template>
-  <div class="app flex-row align-items-center">
-    <div class="container">
-      <b-row class="justify-content-center">
-        <b-col md="6">
-          <!-- <div class="logo-container">
-            <img src="@/assets/logo_2.jpg" width="250" alt="Logo">
-          </div> -->
-          <b-card-group>
-            <b-card no-body class="p-4">
-              <b-card-body>
-                <b-form v-on:keyup.enter="login()">
-                  <b-row>
-                    <b-col>
-                      <!-- <h2 align="center" class="mb-4"><strong>{{ $t('view.login.title') }}</strong></h2> -->
-                    </b-col>
-                  </b-row>
-                  <p class="text-muted">Login</p>
-                  <b-input-group class="mt-3">
-                    <b-input-group-prepend><b-input-group-text><b-icon icon="person-fill"></b-icon></b-input-group-text></b-input-group-prepend>
-                    <b-form-input
-                      type="text"
-                      v-model="username"
-                      placeholder="Username"
-                      @keyup.enter="login"
-                      @input="resetError"
-                      autocomplete="username email"
-                      autocorrect="off"
-                      autocapitalize="none"
-                      class="form-control"/>
-                  </b-input-group>
-                  <b-input-group class="mt-3">
-                    <b-input-group-prepend><b-input-group-text><b-icon icon="lock-fill"></b-icon></b-input-group-text></b-input-group-prepend>
-                    <b-form-input 
-                      type="password"
-                      v-model="password"
-                      placeholder="password"
-                      @keyup.enter="login"
-                      @input="resetError"
-                      autocomplete="current-password"
-                      autocorrect="off"
-                      autocapitalize="none"
-                      class="form-control"/>
-                  </b-input-group>
-                  <b-row class="mt-3">
-                    <b-col>
-                      <div v-if="isLoading" class="loader"></div>
-                      <b-alert :show="isError || isServerError || isUnauthorized || isPasswordError" variant="danger">
-                        <span v-if="isError">msg_error</span>
-                        <span v-if="isServerError">msg_internal_error</span>
-                        <span v-if="isUnauthorized">msg_unauthorized</span>
-                        <span v-if="isPasswordError">msg_password_not_valid</span>    
-                      </b-alert>
-                    </b-col>
-                  </b-row>
-                  <b-row class="mt-4">
-                    <b-col cols="12" class="text-center">
-                      <b-button @click="login" class="login-btn btn-main color-admin">Login</b-button>
-                    </b-col>
-                    <b-col cols="12" class="text-center mt-3">
-                      <b-button @click="goToForgetPassword" variant="link" class="px-0">Forget password</b-button>
-                    </b-col>
-                  </b-row>               
-                </b-form>
-              </b-card-body>
-            </b-card>
-          </b-card-group>
-        </b-col>
-      </b-row>
+  <section class="vh-100" style="background-color: pink">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+
+              <h3 class="mb-5">Sign in</h3>
+
+              <div class="form-outline mb-4">
+                <input type="email" id="typeEmailX-2" class="form-control form-control-lg" placeholder="Username" v-model="username" />
+              </div>
+
+              <div class="form-outline mb-4">
+                <input type="password" id="typePasswordX-2" class="form-control form-control-lg" placeholder="Password" v-model="password" />
+              </div>
+              <div>
+                <!-- <span v-if="isError">{{ $t('view.login.msg_error') }}</span>
+                <span v-if="isServerError">{{ $t('view.login.msg_internal_error') }}</span>
+                <span v-if="isUnauthorized">msg_unauthorized</span>
+                <span v-if="isPasswordError">msg_password_not_valid</span> -->
+              </div>
+              <!-- Checkbox -->
+              <div class="form-check d-flex justify-content-start mb-4">
+                <input class="form-check-input" type="checkbox" value="" id="form1Example3" v-model="checked" />
+                <label class="form-check-label" for="form1Example3"> Remember password </label>
+              </div>
+              <button class="btn btn-light" @click="login" type="submit">Login</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">
@@ -86,6 +50,7 @@ export default class LoginPage extends Vue {
   private isPasswordError?: boolean = false;
   private username?: string = '';
   private password?: string = '';
+  private checked?: boolean = false;
 
   private created() {
     this.$store.dispatch('setUser', {});

@@ -47,9 +47,6 @@ export default class Header extends Vue {
   }
   private logout() {
     loginService.logout();
-    // this.$router.push({
-    //   name: 'router.post'
-    // })
     this.$router.go(0)
   }
   private login() {

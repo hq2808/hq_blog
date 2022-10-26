@@ -2,7 +2,8 @@
   <div class="d-flex border-bottom">
     <b-row>
       <b-col cols="1">
-        avatar
+        <img src="https://mdbcdn.b-cdn.net/img/new/avatars/1.webp" class="rounded-circle shadow-4"
+          style="width: 50px;" alt="Avatar" />
       </b-col>
       <b-col cols="10">
         <h5><a @click="readMore(item.id)" class="text-decoration-none">{{item.title}}</a></h5>

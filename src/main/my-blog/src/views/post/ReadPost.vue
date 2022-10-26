@@ -1,6 +1,6 @@
 <template>
   <div>
-    <pre v-html="data.content"></pre>
+    <div v-html="data.content" class="text-break"></div>
   </div>
 </template>
 

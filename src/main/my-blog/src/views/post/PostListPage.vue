@@ -37,7 +37,7 @@ export default class PostListPage extends Vue {
   private isAdmin?: boolean = false;
 
   async created() {
-    if(this.$router.currentRoute.path === "/admin/post") {
+    if(this.$store.state.user.username) {
       this.isAdmin = true;
     }
     this.currentPage = this.$route.query.currentPage

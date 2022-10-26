@@ -107,14 +107,4 @@ export default class LoginPage extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-  .logo-container {
-    margin-bottom: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .login-btn {
-    width: 100%;
-    font-size: 2rem;
-  }
 </style>

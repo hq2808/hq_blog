@@ -33,10 +33,16 @@ public class BaseEntity implements Serializable {
 	@Column(name = "UPDATED_AT")
 	private LocalDateTime updatedAt;
 	
+	@Column(name = "IS_DELETE")
+	private Boolean isDelete;
+	
+	@Column(name = "CREATED_BY")
+	private Long createdBy;
+	
 	@PrePersist
 	public void prePersist() {
+		isDelete = false;
 		createdAt = LocalDateTime.now();
-		updatedAt = LocalDateTime.now();
 	}
 
 	@PreUpdate

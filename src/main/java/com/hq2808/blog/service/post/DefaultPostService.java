@@ -42,7 +42,7 @@ public class DefaultPostService implements PostService{
 	@Override
 	public Post findById(String id) {
 		Optional<PostEntity> optPost = this.repo.findById(id);
-		if(optPost.isEmpty()) {
+		if(!optPost.isPresent()) {
 			return null;
 		}
 		return optPost.get().toDomain();

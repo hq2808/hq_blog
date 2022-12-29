@@ -2,6 +2,8 @@ package com.hq2808.blog.controller;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +44,7 @@ public class PostsController extends BaseController{
 	}
 	
 	@PostMapping
-	public Response save(@RequestBody Post post) throws ExpiredException {
+	public Response save(@Valid @RequestBody Post post) throws ExpiredException {
 		Optional<User> oCurrentUser = this.getCurrentUser();
 		// if user login not exist
 		if (!oCurrentUser.isPresent()) {
@@ -63,7 +65,7 @@ public class PostsController extends BaseController{
 	@PutMapping("/{id}")
 	public ResponseEntity<Post> update(@PathVariable String id, @RequestBody Post post) {
 		Optional<PostEntity> optPosts = this.postsRepo.findById(id);
-		if(optPosts.isEmpty()) {
+		if(!optPosts.isPresent()) {
 			return null;
 		}
 		post.setId(id);

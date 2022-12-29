@@ -24,11 +24,11 @@ public class Post {
 	private String slug;
 	
 	/** The title. */
-	@NotBlank(message = "validation.input.required")
+	@NotBlank(message = "Tiêu đề không được để trống")
 	private String title;
 	
 	/** The content. */
-	@NotBlank(message = "validation.input.required")
+	@NotBlank(message = "Nội dung không được để trống")
 	private String content;
 	
 	/** The image. */

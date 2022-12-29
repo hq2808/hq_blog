@@ -24,7 +24,7 @@ public class AppUserDetailsService implements UserDetailsService{
 	@Transactional
 	public UserDetail loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<UserEntity> optUser = this.userRepo.findByUsernameOrEmail(username, username);
-		if(optUser.isEmpty()) {
+		if(!optUser.isPresent()) {
 			throw new UsernameNotFoundException("User not found");
 		}
 		UserDetail userDetail = new UserDetail(optUser.get().getUsername()

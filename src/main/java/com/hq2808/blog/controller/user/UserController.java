@@ -2,6 +2,8 @@ package com.hq2808.blog.controller.user;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,7 +51,7 @@ public class UserController extends BaseController{
 	}
 	
 	@PostMapping("/sign-up")
-	public Response signUp(@RequestBody UserSignUpDto userSignUp) throws BusinessException {
+	public Response signUp(@Valid @RequestBody UserSignUpDto userSignUp) throws BusinessException {
 		userSignUp.setPassword(this.passwordEncoder.encode(userSignUp.getPassword()));
 		return Response.build().data(this.userService.signup(userSignUp));
 	}
